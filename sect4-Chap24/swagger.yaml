@@ -98,9 +98,6 @@ paths:
                         location:
                           type: string
                           example: Douala-Bonandjo
-                    
-                  
-              
         404:
           description: No Beers Found
 components: {}
