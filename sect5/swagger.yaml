@@ -30,35 +30,11 @@ paths:
                 minItems: 1
                 type: array
                 items:
-                  maxLength: 100
-                  minLength: 2
-                  type: object
-                  description: Customer Object
-                  properties:
-                    id:
-                      type: string
-                      format: uuid
-                    firstName:
-                      type: string
-                      example: Pierrot
-                    lastName:
-                      type: string
-                      example: Mongonnam
-                    Address:
-                      type: object
-                      properties:
-                        line1:
-                          type: string
-                          example: 10 Rue Manga Bell
-                        city:
-                          type: string
-                          example: Douala
-                        zipCode:
-                          type: string
-                          example: 5555
-                        stateCode:
-                          type: string
-                          enum: [OCE,WOU,NDE,SAN,NTE]
+                  allOf:
+                    - maxLength: 100
+                    - minLength: 2
+                    - $ref: "#/components/schemas/Customer"
+
   /v1/beers:
     get:
       responses:
@@ -100,4 +76,35 @@ paths:
                           example: Douala-Bonandjo
         404:
           description: No Beers Found
-components: {}
+components: 
+  schemas:
+    Address:
+      type: object
+      properties:
+        line1:
+          type: string
+          example: 10 Rue Manga Bell
+        city:
+          type: string
+          example: Douala
+        zipCode:
+          type: string
+          example: 5555
+        stateCode:
+          type: string
+          enum: [OCE,WOU,NDE,SAN,NTE] 
+    Customer:
+      type: object
+      description: Customer Object
+      properties:
+        id:
+          type: string
+          format: uuid
+        firstName:
+          type: string
+          example: Pierrot
+        lastName:
+          type: string
+          example: Mongonnam
+        Address:
+          $ref: "#/components/schemas/Address"
