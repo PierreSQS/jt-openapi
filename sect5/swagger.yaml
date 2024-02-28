@@ -58,15 +58,7 @@ paths:
                       format: int32
                       example: 3,450
                     brewery:
-                      type: object
-                      description: Brewery Object
-                      properties:
-                        name:
-                          type: string
-                          example: UCB
-                        location:
-                          type: string
-                          example: Douala-Bonandjo
+                      $ref: "#/components/schemas/Brewery"
         404:
           description: No Beers Found
 components: 
@@ -112,3 +104,14 @@ components:
           - maxLength: 100
           - minLength: 2
           - $ref: "#/components/schemas/Customer"
+          
+    Brewery:
+      type: object
+      description: Brewery Object
+      properties:
+        name:
+          type: string
+          example: UCB
+        location:
+          type: string
+          example: Douala-Bonandjo
