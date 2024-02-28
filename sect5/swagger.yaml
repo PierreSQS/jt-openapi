@@ -121,3 +121,57 @@ components:
       type: array
       items:
         $ref: "#/components/schemas/Beer"
+        
+    PagedResponse:
+      type: object
+      properties:
+        pageable:
+          $ref: '#/components/schemas/PagedResponse_pageable'
+        totalPages:
+          type: integer
+          format: int32
+        last:
+          type: boolean
+        totalElements:
+          type: integer
+          format: int32
+        size:
+          type: integer
+          format: int32
+        number:
+          type: integer
+          format: int32
+        numberOfElements:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/PagedResponse_pageable_sort'
+        first:
+          type: boolean
+          
+    PagedResponse_pageable_sort:
+      type: object
+      properties:
+        sorted:
+          type: boolean
+        unsorted:
+          type: boolean
+          
+    PagedResponse_pageable:
+      type: object
+      properties:
+        sort:
+          $ref: '#/components/schemas/PagedResponse_pageable_sort'
+        offset:
+          type: integer
+          format: int32
+        pageNumber:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        paged:
+          type: boolean
+        unpaged:
+          type: boolean
