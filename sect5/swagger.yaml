@@ -134,6 +134,7 @@ components:
         
     PagedResponse:
       type: object
+      description: Paged Response Object
       properties:
         pageable:
           $ref: '#/components/schemas/PagedResponse_pageable'
@@ -161,6 +162,7 @@ components:
           
     PagedResponse_pageable_sort:
       type: object
+      description: pageable PagedResponse Sort
       properties:
         sorted:
           type: boolean
@@ -169,6 +171,7 @@ components:
           
     PagedResponse_pageable:
       type: object
+      description: pageable PagedResponse Object
       properties:
         sort:
           $ref: '#/components/schemas/PagedResponse_pageable_sort'
