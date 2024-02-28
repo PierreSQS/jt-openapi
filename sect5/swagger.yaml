@@ -123,6 +123,15 @@ components:
       items:
         $ref: "#/components/schemas/Beer"
         
+    BeerPagedList:
+      type: object
+      description: Paged Beer List
+      allOf:
+        - $ref: "#/components/schemas/PagedResponse"
+      properties:
+        content:
+          $ref: "#/components/schemas/PagedResponse"
+        
     PagedResponse:
       type: object
       properties:
