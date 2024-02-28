@@ -119,6 +119,7 @@ components:
           
     BeerList:
       type: array
+      description: Beer List
       items:
         $ref: "#/components/schemas/Beer"
         
