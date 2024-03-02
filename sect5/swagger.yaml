@@ -26,7 +26,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CustomerList"
+                $ref: '#/components/schemas/CustomerPagedList'
 
   /v1/beers:
     get:
@@ -132,6 +132,15 @@ components:
         content:
           $ref: "#/components/schemas/BeerList"
         
+    CustomerPagedList:
+      type: object
+      description: Paged CustomerList
+      properties:
+        content:
+          $ref: '#/components/schemas/CustomerList'
+      allOf:
+        - $ref: '#/components/schemas/PagedResponse'    
+    
     PagedResponse:
       type: object
       description: Paged Response Object
