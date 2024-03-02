@@ -130,7 +130,7 @@ components:
         - $ref: "#/components/schemas/PagedResponse"
       properties:
         content:
-          $ref: "#/components/schemas/PagedResponse"
+          $ref: "#/components/schemas/BeerList"
         
     PagedResponse:
       type: object
