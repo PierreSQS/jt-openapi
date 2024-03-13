@@ -20,6 +20,22 @@ servers:
 paths:
   /v1/customers:
     get:
+      parameters: 
+        - name: pageNumber
+          in: query
+          description: Page Number
+          schema:
+            type: integer
+            format: int32
+            default: 1
+        - name: pageSize
+          in: query
+          description: Page Size
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 25
       responses:
         200:
           description: List of Customers
