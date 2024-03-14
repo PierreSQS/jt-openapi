@@ -53,6 +53,7 @@ components:
       name: pageNumber
       in: query
       description: Page Number
+      required: false
       schema:
         type: integer
         format: int32
@@ -62,6 +63,7 @@ components:
       name: pageSize
       in: query
       description: Page Size
+      required: false
       schema:
         type: integer
         format: int32
