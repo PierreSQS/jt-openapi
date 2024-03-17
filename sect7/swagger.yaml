@@ -20,6 +20,8 @@ servers:
 paths:
   /v1/customers:
     get:
+      description: List Customers
+      summary: List all Customers in System
       parameters: 
         - $ref: "#/components/parameters/PageNumberParam"
         - $ref: "#/components/parameters/PageSizeParam"
@@ -34,6 +36,8 @@ paths:
 
   /v1/customers/{customerID}:
     get:
+      description: Get Customer by ID
+      summary: Get a Specific Customer by it's ID value
       parameters:
         - name: customerID
           in: path
@@ -53,6 +57,8 @@ paths:
   
   /v1/beers:
     get:
+      description: List Beers
+      summary: List all Beers in System
       parameters: 
         - $ref: "#/components/parameters/PageNumberParam"
         - $ref: "#/components/parameters/PageSizeParam"
@@ -69,6 +75,8 @@ paths:
 
   /v1/beers/{beerID}:
     get:
+      description: Get Beer By ID
+      summary: Get a specific Beer by it's ID value
       parameters: 
         - name: beerID
           in: path
@@ -125,6 +133,7 @@ components:
         stateCode:
           type: string
           enum: [OCE,WOU,NDE,SAN,NTE] 
+    
     Customer:
       type: object
       description: Customer Object
@@ -140,6 +149,7 @@ components:
           example: Mongonnam
         Address:
           $ref: "#/components/schemas/Address"
+    
     CustomerList:
       type: array
       maxItems: 100
