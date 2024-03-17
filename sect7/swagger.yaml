@@ -24,6 +24,7 @@ paths:
       summary: List all Customers in System
       tags: 
         - Customers
+      operationId: listCustomersV1
       parameters: 
         - $ref: "#/components/parameters/PageNumberParam"
         - $ref: "#/components/parameters/PageSizeParam"
@@ -42,6 +43,7 @@ paths:
       summary: Get a Specific Customer by it's ID value
       tags: 
         - Customers
+      operationId: getCustomerByIdV1
       parameters:
         - name: customerID
           in: path
@@ -65,6 +67,7 @@ paths:
       summary: List all Beers in System
       tags: 
         - Beers
+      operationId: listBeersV1
       parameters: 
         - $ref: "#/components/parameters/PageNumberParam"
         - $ref: "#/components/parameters/PageSizeParam"
@@ -85,6 +88,7 @@ paths:
       summary: Get a specific Beer by it's ID value
       tags: 
         - Beers
+      operationId: getBeerByIdV1
       parameters: 
         - name: beerID
           in: path
