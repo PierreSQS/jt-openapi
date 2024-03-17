@@ -79,8 +79,8 @@ paths:
                 $ref: '#/components/schemas/Customer'
     
     put:
-      description: Update Customer
-      summary: Update a Customer by ID
+      description: Update Customer by ID
+      summary: Update a specific Customer by ID
       tags: 
         - Customers
       operationId: updateCustomerByIdV1
@@ -102,7 +102,7 @@ paths:
                schema:
                  type: string
                  format: uri
-                 example: http://example.com/v1/customers/{updatedBeerID}
+                 example: http://example.com/v1/customers/{updatedCustomerID}
   
   /v1/beers:
     get:
@@ -157,13 +157,7 @@ paths:
         - Beers
       operationId: getBeerByIdV1
       parameters: 
-        - name: beerID
-          in: path
-          required: true
-          description: Beer ID
-          schema:
-            type: string
-            format: uuid
+        - $ref: '#/components/parameters/BeerIdPathParam'
 
       responses:
         200:
@@ -172,6 +166,33 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Beer'
+    
+    put:
+      description:  Update Beer By ID
+      summary: Update a specific Beer by BeerID
+      tags: 
+        - Beers
+      operationId: updateBeerByIdV1
+      parameters: 
+        - $ref: '#/components/parameters/BeerIdPathParam'
+        
+      requestBody:
+        required: true
+        content:
+          application/json: 
+            schema:
+              $ref: '#/components/schemas/Beer'
+      
+      responses:
+        '204':
+           description: Beer updated
+           headers:
+             Location:
+               description: Location of updated Beer
+               schema:
+                 type: string
+                 format: uri
+                 example: http://example.com/v1/customers/{updatedBeerID}
 
 components: 
   parameters:
@@ -200,6 +221,15 @@ components:
       in: path
       description: Customer ID
       required: true
+      schema:
+        type: string
+        format: uuid
+        
+    BeerIdPathParam:
+      name: beerID
+      in: path
+      required: true
+      description: Beer ID
       schema:
         type: string
         format: uuid
