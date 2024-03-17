@@ -80,7 +80,7 @@ paths:
 
       responses:
         200:
-          description: Beer by ID
+          description: Found Beer by ID
           content:
             application/json:
               schema:
