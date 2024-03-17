@@ -68,13 +68,7 @@ paths:
         - Customers
       operationId: getCustomerByIdV1
       parameters:
-        - name: customerID
-          in: path
-          description: Customer ID
-          required: true
-          schema:
-            type: string
-            format: uuid
+        - $ref: '#/components/parameters/CustomerIdPathParam'
           
       responses:
         200:
@@ -83,6 +77,32 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Customer'
+    
+    put:
+      description: Update Customer
+      summary: Update a Customer by ID
+      tags: 
+        - Customers
+      operationId: updateCustomerByIdV1
+      parameters: 
+        - $ref: '#/components/parameters/CustomerIdPathParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+      
+      responses:
+        '204':
+           description: Customer updated
+           headers:
+             Location:
+               description: Location of the updated Customer
+               schema:
+                 type: string
+                 format: uri
+                 example: http://example.com/v1/customers/{updatedBeerID}
   
   /v1/beers:
     get:
@@ -174,6 +194,15 @@ components:
         type: integer
         format: int32
         default: 25
+        
+    CustomerIdPathParam:
+      name: customerID
+      in: path
+      description: Customer ID
+      required: true
+      schema:
+        type: string
+        format: uuid
         
   schemas:
     Address:
