@@ -236,6 +236,10 @@ components:
       type: object
       description: Beer Object
       properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
         beerName:
           type: string
         style:
