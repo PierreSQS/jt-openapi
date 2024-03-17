@@ -36,6 +36,22 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CustomerPagedList'
+                
+    post:
+      description: Create Customer
+      summary: Create a new Customer
+      tags: 
+        - Customers
+      operationId: createCustomerV1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+      responses:
+        '201':
+           description: Customer created
 
   /v1/customers/{customerID}:
     get:
