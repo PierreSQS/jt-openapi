@@ -38,7 +38,7 @@ paths:
                 $ref: '#/components/schemas/CustomerPagedList'
                 
     post:
-      description: Create Customer
+      description: New Customer
       summary: Create a new Customer
       tags: 
         - Customers
@@ -105,6 +105,30 @@ paths:
         404:
           description: No Beers Found
 
+    post:
+      description: New Beer
+      summary: Create a new Beer
+      tags: 
+        - Beers
+      operationId: createBeerV1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Beer'
+      
+      responses:
+        '201':
+           description: Beer created
+           headers:
+             Location:
+               description: Location of the created Beer
+               schema:
+                 type: string
+                 format: uri
+                 example: http://example.com/v1/beers/{assignedID}
+  
   /v1/beers/{beerID}:
     get:
       description: Get Beer By ID
