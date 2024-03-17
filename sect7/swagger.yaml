@@ -20,6 +20,8 @@ servers:
 paths:
   /v1/customers:
     get:
+      tags: 
+        - Customers
       description: List Customers
       summary: List all Customers in System
       parameters: 
@@ -36,6 +38,8 @@ paths:
 
   /v1/customers/{customerID}:
     get:
+      tags: 
+        - Customers
       description: Get Customer by ID
       summary: Get a Specific Customer by it's ID value
       parameters:
@@ -57,6 +61,8 @@ paths:
   
   /v1/beers:
     get:
+      tags: 
+        - Beers
       description: List Beers
       summary: List all Beers in System
       parameters: 
@@ -75,6 +81,8 @@ paths:
 
   /v1/beers/{beerID}:
     get:
+      tags: 
+        - Beers
       description: Get Beer By ID
       summary: Get a specific Beer by it's ID value
       parameters: 
