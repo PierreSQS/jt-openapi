@@ -20,10 +20,10 @@ servers:
 paths:
   /v1/customers:
     get:
-      tags: 
-        - Customers
       description: List Customers
       summary: List all Customers in System
+      tags: 
+        - Customers
       parameters: 
         - $ref: "#/components/parameters/PageNumberParam"
         - $ref: "#/components/parameters/PageSizeParam"
@@ -38,10 +38,10 @@ paths:
 
   /v1/customers/{customerID}:
     get:
-      tags: 
-        - Customers
       description: Get Customer by ID
       summary: Get a Specific Customer by it's ID value
+      tags: 
+        - Customers
       parameters:
         - name: customerID
           in: path
@@ -61,10 +61,10 @@ paths:
   
   /v1/beers:
     get:
-      tags: 
-        - Beers
       description: List Beers
       summary: List all Beers in System
+      tags: 
+        - Beers
       parameters: 
         - $ref: "#/components/parameters/PageNumberParam"
         - $ref: "#/components/parameters/PageSizeParam"
@@ -81,10 +81,10 @@ paths:
 
   /v1/beers/{beerID}:
     get:
-      tags: 
-        - Beers
       description: Get Beer By ID
       summary: Get a specific Beer by it's ID value
+      tags: 
+        - Beers
       parameters: 
         - name: beerID
           in: path
