@@ -78,6 +78,19 @@ paths:
               schema:
                 $ref: '#/components/schemas/Customer'
     
+    delete:
+      tags: 
+        - Customers
+      summary: Delete a specific Customer by ID
+      description: Delete Customer by Id
+      operationId: deleteCustomerByIdV1
+      parameters: 
+        - $ref: '#/components/parameters/CustomerIdPathParam'
+      
+      responses:
+        '200':
+           description: Customer deleted  
+
     put:
       description: Update Customer by ID
       summary: Update a specific Customer by ID
