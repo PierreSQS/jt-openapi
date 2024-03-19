@@ -206,6 +206,18 @@ paths:
                  type: string
                  format: uri
                  example: http://example.com/v1/customers/{updatedBeerID}
+    delete:
+      tags: 
+        - Beers
+      summary: Delete a specific Beer by ID
+      description: Delete Beer by Id
+      operationId: deleteBeerByIdV1
+      parameters: 
+        - $ref: '#/components/parameters/BeerIdPathParam'
+      
+      responses:
+        '200':
+           description: Beer deleted  
 
 components: 
   parameters:
