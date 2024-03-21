@@ -30,13 +30,19 @@ paths:
         - $ref: "#/components/parameters/PageSizeParam"
       
       responses:
-        200:
+        '200':
           description: List of Customers
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/CustomerPagedList'
-                
+        
+        '400':  
+          description: Bad Request
+        
+        '404':
+          description: Customer not found
+    
     post:
       description: New Customer
       summary: Create a new Customer
@@ -59,6 +65,12 @@ paths:
                  type: string
                  format: uri
                  example: http://example.com/v1/customers/{assignedID}
+        
+        '400':  
+          description: Bad Request
+        
+        '409':
+          description: Conflict
 
   /v1/customers/{customerID}:
     get:
@@ -71,12 +83,18 @@ paths:
         - $ref: '#/components/parameters/CustomerIdPathParam'
           
       responses:
-        200:
+        '200':
           description: Found Customer
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Customer'
+        
+        '400':  
+          description: Bad Request
+        
+        '404':
+          description: Customer not found
     
     delete:
       tags: 
@@ -90,6 +108,12 @@ paths:
       responses:
         '200':
            description: Customer deleted  
+        
+        '400':  
+          description: Bad Request
+        
+        '404':
+          description: Customer not found
 
     put:
       description: Update Customer by ID
@@ -116,6 +140,15 @@ paths:
                  type: string
                  format: uri
                  example: http://example.com/v1/customers/{updatedCustomerID}
+                 
+        '400':  
+          description: Bad Request
+        
+        '404':
+          description: Customer not found
+          
+        '409':
+          description: Conflict
   
   /v1/beers:
     get:
@@ -206,6 +239,7 @@ paths:
                  type: string
                  format: uri
                  example: http://example.com/v1/customers/{updatedBeerID}
+
     delete:
       tags: 
         - Beers
