@@ -1,0 +1,459 @@
+openapi: 3.0.2
+info:
+  version: '1.0'
+  title: JT OpenApi Course
+  termsOfService: http://example.com/terms/
+  contact:
+    name: John Thompson
+    url: https://springframework.guru
+    email: john@springframework.guru
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- url: https://dev.example.com
+  description: Development Server
+- url: https://qa.example.com
+  description: QA Server
+- url: https://prod.example.com
+  description: Production Server
+paths:
+  /v1/customers:
+    get:
+      description: List Customers
+      summary: List all Customers in System
+      tags: 
+        - Customers
+      operationId: listCustomersV1
+      parameters: 
+        - $ref: "#/components/parameters/PageNumberParam"
+        - $ref: "#/components/parameters/PageSizeParam"
+      
+      responses:
+        '200':
+          description: List of Customers
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerPagedList'
+        
+        '400':  
+          description: Bad Request
+        
+        '404':
+          description: Customer not found
+    
+    post:
+      description: New Customer
+      summary: Create a new Customer
+      tags: 
+        - Customers
+      operationId: createCustomerV1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+      responses:
+        '201':
+           description: Customer created
+           headers:
+             Location:
+               description: Location of the created Customer
+               schema:
+                 type: string
+                 format: uri
+                 example: http://example.com/v1/customers/{assignedID}
+        
+        '400':  
+          description: Bad Request
+        
+        '409':
+          description: Conflict
+
+  /v1/customers/{customerID}:
+    get:
+      description: Get Customer by ID
+      summary: Get a Specific Customer by it's ID value
+      tags: 
+        - Customers
+      operationId: getCustomerByIdV1
+      parameters:
+        - $ref: '#/components/parameters/CustomerIdPathParam'
+          
+      responses:
+        '200':
+          description: Found Customer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        
+        '400':  
+          description: Bad Request
+        
+        '404':
+          description: Customer not found
+    
+    delete:
+      tags: 
+        - Customers
+      summary: Delete a specific Customer by ID
+      description: Delete Customer by Id
+      operationId: deleteCustomerByIdV1
+      parameters: 
+        - $ref: '#/components/parameters/CustomerIdPathParam'
+      
+      responses:
+        '200':
+           description: Customer deleted  
+        
+        '400':  
+          description: Bad Request
+        
+        '404':
+          description: Customer not found
+
+    put:
+      description: Update Customer by ID
+      summary: Update a specific Customer by ID
+      tags: 
+        - Customers
+      operationId: updateCustomerByIdV1
+      parameters: 
+        - $ref: '#/components/parameters/CustomerIdPathParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+      
+      responses:
+        '204':
+           description: Customer updated
+           headers:
+             Location:
+               description: Location of the updated Customer
+               schema:
+                 type: string
+                 format: uri
+                 example: http://example.com/v1/customers/{updatedCustomerID}
+                 
+        '400':  
+          description: Bad Request
+        
+        '404':
+          description: Customer not found
+          
+        '409':
+          description: Conflict
+  
+  /v1/beers:
+    get:
+      description: List Beers
+      summary: List all Beers in System
+      tags: 
+        - Beers
+      operationId: listBeersV1
+      parameters: 
+        - $ref: "#/components/parameters/PageNumberParam"
+        - $ref: "#/components/parameters/PageSizeParam"
+          
+      responses:
+        200:
+          description: Paged List of Beers
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BeerPagedList"
+        404:
+          description: No Beers Found
+
+    post:
+      description: New Beer
+      summary: Create a new Beer
+      tags: 
+        - Beers
+      operationId: createBeerV1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Beer'
+      
+      responses:
+        '201':
+           description: Beer created
+           headers:
+             Location:
+               description: Location of the created Beer
+               schema:
+                 type: string
+                 format: uri
+                 example: http://example.com/v1/beers/{assignedID}
+  
+  /v1/beers/{beerID}:
+    get:
+      description: Get Beer By ID
+      summary: Get a specific Beer by it's ID value
+      tags: 
+        - Beers
+      operationId: getBeerByIdV1
+      parameters: 
+        - $ref: '#/components/parameters/BeerIdPathParam'
+
+      responses:
+        200:
+          description: Found Beer by ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Beer'
+    
+    put:
+      description:  Update Beer By ID
+      summary: Update a specific Beer by BeerID
+      tags: 
+        - Beers
+      operationId: updateBeerByIdV1
+      parameters: 
+        - $ref: '#/components/parameters/BeerIdPathParam'
+        
+      requestBody:
+        required: true
+        content:
+          application/json: 
+            schema:
+              $ref: '#/components/schemas/Beer'
+      
+      responses:
+        '204':
+           description: Beer updated
+           headers:
+             Location:
+               description: Location of updated Beer
+               schema:
+                 type: string
+                 format: uri
+                 example: http://example.com/v1/customers/{updatedBeerID}
+
+    delete:
+      tags: 
+        - Beers
+      summary: Delete a specific Beer by ID
+      description: Delete Beer by Id
+      operationId: deleteBeerByIdV1
+      parameters: 
+        - $ref: '#/components/parameters/BeerIdPathParam'
+      
+      responses:
+        '200':
+           description: Beer deleted  
+
+components: 
+  parameters:
+    PageNumberParam:
+      name: pageNumber
+      in: query
+      description: Page Number
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 1
+        
+    PageSizeParam:
+      name: pageSize
+      in: query
+      description: Page Size
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 25
+        
+    CustomerIdPathParam:
+      name: customerID
+      in: path
+      description: Customer ID
+      required: true
+      schema:
+        type: string
+        format: uuid
+        
+    BeerIdPathParam:
+      name: beerID
+      in: path
+      required: true
+      description: Beer ID
+      schema:
+        type: string
+        format: uuid
+        
+  schemas:
+    Address:
+      type: object
+      description: Address Object
+      properties:
+        line1:
+          type: string
+          example: 10 Rue Manga Bell
+        city:
+          type: string
+          example: Douala
+        zipCode:
+          type: string
+          example: 5555
+        stateCode:
+          type: string
+          enum: [OCE,WOU,NDE,SAN,NTE] 
+    
+    Customer:
+      type: object
+      description: Customer Object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        firstName:
+          type: string
+          example: Pierrot
+        lastName:
+          type: string
+          example: Mongonnam
+        Address:
+          $ref: "#/components/schemas/Address"
+    
+    CustomerList:
+      type: array
+      maxItems: 100
+      minItems: 1
+      description: "List of customers"
+      items:
+        allOf:
+          - maxLength: 100
+          - minLength: 2
+          - $ref: "#/components/schemas/Customer"
+          
+    Brewery:
+      type: object
+      description: Brewery Object
+      properties:
+        name:
+          type: string
+          example: UCB
+        location:
+          type: string
+          example: Douala-Bonandjo
+    
+    Beer:
+      type: object
+      description: Beer Object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        beerName:
+          type: string
+        style:
+          type: string
+        upc:
+          type: string
+          enum: [ALE, PALE_ALE, IPA, WHEAT, LAGER]
+        price:
+          type: number
+          format: float
+          example: 25.4
+        qtyOnHand:
+          description: quantity on Hand
+          type: integer
+          format: int32
+          example: 3,450
+        brewery:
+          $ref: "#/components/schemas/Brewery"
+          
+    BeerList:
+      type: array
+      description: Beer List
+      items:
+        $ref: "#/components/schemas/Beer"
+        
+    BeerPagedList:
+      type: object
+      description: Paged Beer List
+      allOf:
+        - $ref: "#/components/schemas/PagedResponse"
+      properties:
+        content:
+          $ref: "#/components/schemas/BeerList"
+        
+    CustomerPagedList:
+      type: object
+      description: Paged CustomerList
+      properties:
+        content:
+          $ref: '#/components/schemas/CustomerList'
+      allOf:
+        - $ref: '#/components/schemas/PagedResponse'    
+    
+    PagedResponse:
+      type: object
+      description: Paged Response Object
+      properties:
+        pageable:
+          $ref: '#/components/schemas/PagedResponse_pageable'
+        totalPages:
+          type: integer
+          format: int32
+        last:
+          type: boolean
+        totalElements:
+          type: integer
+          format: int32
+        size:
+          type: integer
+          format: int32
+        number:
+          type: integer
+          format: int32
+        numberOfElements:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/PagedResponse_pageable_sort'
+        first:
+          type: boolean
+          
+    PagedResponse_pageable_sort:
+      type: object
+      description: pageable PagedResponse Sort
+      properties:
+        sorted:
+          type: boolean
+        unsorted:
+          type: boolean
+          
+    PagedResponse_pageable:
+      type: object
+      description: pageable PagedResponse Object
+      properties:
+        sort:
+          $ref: '#/components/schemas/PagedResponse_pageable_sort'
+        offset:
+          type: integer
+          format: int32
+        pageNumber:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        paged:
+          type: boolean
+        unpaged:
+          type: boolean
