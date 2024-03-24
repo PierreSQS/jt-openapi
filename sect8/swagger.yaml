@@ -253,7 +253,15 @@ paths:
         '200':
            description: Beer deleted  
 
-components: 
+security: 
+ - BasicAuth: []
+ 
+components:
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+    
   parameters:
     PageNumberParam:
       name: pageNumber
